@@ -157,3 +157,18 @@ class case0_sequence extends uvm_sequence #(my_transaction);
     ...
     endtask
 endclass
+
+1. The variable starting_phase is only set when using the default_sequence method of starting a sequence. See uvm_sequence_base.svh and uvm_sequencer_base.svh for further clarification. If you are starting the sequence as part of your test, you should set starting_phase manually.
+
+2. You should never use the default_sequence method to start a sequence as it is deprecated. Always start the sequence as part of your test.
+
+How to start sequence to assigned sequencer ?
+step1: define your_own_sequence extends uvm_sequence
+step2: in test caase's main_phase(uvm_phase phase) instance the your_own_sequence like:
+       xx_seq  xx_seq_inst;
+       xx_seq_inst = new("xx_seq_inst");
+step3: xx_seq_inst.starting_phase = phase; // important: assign starting phase
+step4: xx_seq_inst.start(env.i_agt.sqr);   // important: sqr's path
+
+
+
