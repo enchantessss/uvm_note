@@ -195,3 +195,8 @@ endtask
 to set some event, use -> event_name; in other thread, use @event_name to wait the event. the event_name must be declared as
 event event_name; // a global event.
 
+in sequence can use `uvm_declare_p_sequncer(sequencer_to_be_assigned); for the purpose of pointer to the sequencer_to_be_assigned's class member.(p_sequencer.member)
+
+to register sequencer/base_test/driver/agent/scb/env/mdl use `uvm_component_utils(class_name);
+to register sequence/transcaction use `uvm_object_utils(class_name);
+
