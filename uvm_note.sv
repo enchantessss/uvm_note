@@ -170,5 +170,28 @@ step2: in test caase's main_phase(uvm_phase phase) instance the your_own_sequenc
 step3: xx_seq_inst.starting_phase = phase; // important: assign starting phase
 step4: xx_seq_inst.start(env.i_agt.sqr);   // important: sqr's path
 
+example:
+class my_case0 extends base_test;
 
+   function new(string name = "my_case0", uvm_component parent = null);
+      super.new(name,parent);
+   endfunction 
+   extern virtual function void build_phase(uvm_phase phase); 
+   extern task main_phase(uvm_phase phase);
+   `uvm_component_utils(my_case0)
+endclass
+
+task my_case0::main_phase(uvm_phase phase);
+    case0_sequence my_case0_sequence_inst;
+    super.main_phase(phase);
+    my_case0_sequence_inst = new("my_case0_sequence_inst");
+    my_case0_sequence_inst.starting_phase = phase;
+    my_case0_sequence_inst.start(env.i_agt.sqr);
+endtask
+
+
+// ===============================================
+// 2018-10-14 Note
+to set some event, use -> event_name; in other thread, use @event_name to wait the event. the event_name must be declared as
+event event_name; // a global event.
 
