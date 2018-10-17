@@ -200,3 +200,23 @@ in sequence can use `uvm_declare_p_sequncer(sequencer_to_be_assigned); for the p
 to register sequencer/base_test/driver/agent/scb/env/mdl use `uvm_component_utils(class_name);
 to register sequence/transcaction use `uvm_object_utils(class_name);
 
+// ===============================================
+// 2018-10-17 Note
+// Tips: use wait_modified to wait the config db set value set.
+// This can be use in component or sequence
+while(1) begin
+   uvm_config_db#(bit)::wait_modified(this, "", "cmp_en");
+   void'(uvm_config_db#(bit)::get(this, "", "cmp_en", cmp_en)); 
+   `uvm_info("my_scoreboard", $sformatf("cmp_en value modified, the new value is %0d", cmp_en), UVM_LOW)
+end
+
+// Tips: in driver use response to react to sequence, response queue max depth is 8;
+driver::main_phase:
+    rsp = new("rsp");
+    rsp.set_id_info(req);
+    seq_item_port.put_response(rsp);
+sequence::body: 
+    get_response(rsp);
+    rsp.print();
+// Tips:
+
