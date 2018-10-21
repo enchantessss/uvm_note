@@ -219,4 +219,5 @@ sequence::body:
     get_response(rsp);
     rsp.print();
 // Tips:
-
+vpi.get_value(obj, p_value);
+vpi.put_value(obj, p_value, p_time, flags);
