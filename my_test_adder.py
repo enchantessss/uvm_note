@@ -4,6 +4,7 @@
 import random
 from ctypes import *
 
+# If need so file
 so_file = "../../my_functions.so"
 
 from adder_model import adder_model
